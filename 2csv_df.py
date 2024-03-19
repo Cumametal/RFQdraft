@@ -28,11 +28,11 @@ if 'client_input' not in st.session_state or 'user_name' not in st.session_state
 col_izq, col_der = st.columns([2, 1.5])
 
 col_izq.subheader("RFQ control")
-rfq_control = pd.read_csv('Cumametal/RFQdraft/1 rfq control.csv', encoding='latin-1')
+rfq_control = pd.read_csv('RFQdraft/1 rfq control.csv', encoding='latin-1')
 col_izq.write(rfq_control)
 
 col_der.subheader("Control clientes")
-clientes_df = pd.read_csv('Cumametal/RFQdraft/clientes_df.csv', encoding='latin-1')
+clientes_df = pd.read_csv('RFQdraft/clientes_df.csv', encoding='latin-1')
 col_der.write(clientes_df)
 
 # Función para actualizar el DataFrame y obtener el número de RFQ
@@ -54,7 +54,7 @@ def actualizar_consecutivo(cliente):
         # Guardar el valor actualizado de 'orden_RFQ' en la variable 'numero_RFQ'
         st.session_state.numero_RFQ = clientes_df.at[idx, 'orden_RFQ']
         st.success(f"Se ha actualizado el consecutivo para el cliente {cliente}. Número de RFQ: {st.session_state.numero_RFQ}")
-        clientes_df.to_csv('Cumametal/RFQdraft/clientes_df.csv', index = False )
+        clientes_df.to_csv('RFQdraft/clientes_df.csv', index = False )
     else:
         print("Cliente no encontrado en la base de datos.")
         st.error(f"No se encontró el cliente {cliente} en la base de datos.")
@@ -181,17 +181,15 @@ st.warning("Revisar si los datos están correctos para poder cargarlos al sistem
 #Agregar datos a la base principal RFQ Control
 
 
-
 borrar_datos = st.button("Agregar datos" )
 
-
 # Restablecer valores cuando se agregan datos a df
-    
+@st.cache
 if borrar_datos:
     rfq_control = rfq_control.append(new_data, ignore_index = True)
     st.header("New File")
     st.write(rfq_control)
-    rfq_control.to_csv('Cumametal/RFQdraft/1 rfq control.csv', index = False )
+    rfq_control.to_csv('RFQdraft/1 rfq control.csv', index = False )
 
     
 
