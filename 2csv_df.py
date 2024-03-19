@@ -186,7 +186,7 @@ borrar_datos = st.button("Agregar datos" )
 # Restablecer valores cuando se agregan datos a df
 
 if borrar_datos:
-    rfq_control = rfq_control.append(new_data, ignore_index = True)
+    rfq_control = pd.concat([rfq_control, new_data], ignore_index=True)
     st.header("New File")
     st.write(rfq_control)
     rfq_control.to_csv('1 rfq control.csv', index = False )
