@@ -165,38 +165,35 @@ if st.button("Crear RFQ"):
 st.markdown("<h4 style='text-align: center;'>Datos a cargar </h4>", unsafe_allow_html=True)
 
 new_data = {
-    "RFQ_num": st.session_state.numero_RFQ,
-    "RFQ_mail": st.session_state.rfq_mail,
-    "RFQ_inquiry_date": st.session_state.rfq_inquiry_date,
-    "PM_asignado": st.session_state.pm_asignado,
-    "Cliente": st.session_state.client_input,
-    "Usuario":st.session_state.user_name,
-    "Descripcion": st.session_state.descripcion,
-    "Status": st.session_state.order_status
+    "RFQ_num": [st.session_state.numero_RFQ],
+    "RFQ_mail": [st.session_state.rfq_mail],
+    "RFQ_inquiry_date": [st.session_state.rfq_inquiry_date],
+    "PM_asignado": [st.session_state.pm_asignado],
+    "Cliente": [st.session_state.client_input],
+    "Usuario":[st.session_state.user_name],
+    "Descripcion": [st.session_state.descripcion],
+    "Status": [st.session_state.order_status]
 }   
 
-st.write(new_data)
+my_df = pd.DataFrame(new_data)
+
+st.write(my_df)
 st.warning("Revisar si los datos están correctos para poder cargarlos al sistema y confirmar")
+
 
 #Agregar datos a la base principal RFQ Control
 
 
+
 borrar_datos = st.button("Agregar datos" )
 
-# Restablecer valores cuando se agregan datos a df
 
+# Restablecer valores cuando se agregan datos a df
+    
 if borrar_datos:
-    rfq_control = pd.concat([rfq_control, new_data], ignore_index=True)
+    rfq_control = pd.concat([rfq_control, my_df], ignore_index=True)
     st.header("New File")
     st.write(rfq_control)
     rfq_control.to_csv('1 rfq control.csv', index = False )
-
-    
-
-
-
-
-
-
 
     
