@@ -184,7 +184,7 @@ st.warning("Revisar si los datos están correctos para poder cargarlos al sistem
 borrar_datos = st.button("Agregar datos" )
 
 # Restablecer valores cuando se agregan datos a df
-@st.cache
+
 if borrar_datos:
     rfq_control = rfq_control.append(new_data, ignore_index = True)
     st.header("New File")
